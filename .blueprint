@@ -1,0 +1,19 @@
+created:
+    - database/factories/ShopFactory.php
+    - database/factories/ProductFactory.php
+    - database/factories/BatchFactory.php
+    - database/factories/DeliveryFactory.php
+    - database/migrations/2024_01_12_211237_create_shops_table.php
+    - database/migrations/2024_01_12_211238_create_products_table.php
+    - database/migrations/2024_01_12_211239_create_batches_table.php
+    - database/migrations/2024_01_12_211240_create_deliveries_table.php
+    - app/Models/Shop.php
+    - app/Models/Product.php
+    - app/Models/Batch.php
+    - app/Models/Delivery.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Shop: { name: string, contact_no: string, contact_name: string, address: string, relationships: { hasMany: Delivery } }
+    Product: { name: string, price: integer, expiry_days: integer, image: 'text nullable', relationships: { hasMany: Batch } }
+    Batch: { product_id: unsignedInteger, price: integer, mfd: datetime, expd: datetime, relationships: { belongsTo: Product, hasMany: Delivery } }
+    Delivery: { shop_id: unsignedInteger, batch_id: unsignedInteger, return_qty: integer, delivered_qty: integer, relationships: { belongsTo: 'Shop, Batch' } }

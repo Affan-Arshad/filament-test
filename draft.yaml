@@ -1,0 +1,33 @@
+models:
+  Shop:
+    name: string
+    contact_no: string
+    contact_name: string
+    address: string
+    relationships:
+      hasMany: Delivery
+  
+  Product:
+    name: string
+    price: integer
+    expiry_days: integer
+    image: text nullable
+    relationships:
+      hasMany: Batch
+    
+  Batch:
+    product_id: unsignedInteger
+    price: integer
+    mfd: datetime
+    expd: datetime
+    relationships:
+      belongsTo: Product
+      hasMany: Delivery
+
+  Delivery:
+    shop_id: unsignedInteger
+    batch_id: unsignedInteger
+    return_qty: integer
+    delivered_qty: integer
+    relationships:
+      belongsTo: Shop, Batch
